@@ -4,10 +4,16 @@ class GFQuestion(object):
 	   This is used by GFParser to easily find info. Should not be accessed by user.
 	"""
 
+	SUPPORTED_TYPES = ["ss-radio", "ss-select", "ss-checkbox", "ss-text", "ss-paragraph-text"]
+
 	def __init__(self, questionSoup):
 		"""Initializes from an ss-form-question div element as soup object"""
 		self.soup = questionSoup
-		self.type = self.soup.div["class"][1]
+		qClasses = self.soup.div["class"]
+		for qClass in qClasses:
+			if qClass in self.SUPPORTED_TYPES:
+				self.type = qClass
+				break
 		self.id   = None
 		self.label = self.soup.label.div.text.strip()
 		self._answer = None
