@@ -47,3 +47,7 @@ Clone the repository or install via PyPI (coming soon).
 
 ## Licence
 The project uses a permissive MIT Licence. Do whatever you want with it.
+
+## Resource
+
+Special thanks to [Kristler on Reddit](https://www.reddit.com/r/learnprogramming/comments/32xd4s/how_can_i_use_python_to_submit_a_google_form_or/cqfvj4m) for the inspiration.
