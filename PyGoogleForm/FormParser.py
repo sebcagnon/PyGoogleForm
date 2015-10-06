@@ -55,7 +55,6 @@ class GFParser(object):
 			if q.getAnswerData() is not None:
 				tups += q.getAnswerData()
 		data = urllib.urlencode(tups)
-		print data
 		postURL = self.soup.form["action"]
 		request = urllib2.Request(postURL, data)
 		urllib2.urlopen(request)
