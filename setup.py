@@ -7,8 +7,8 @@ setup(
   author = 'Sebastien Cagnon',
   author_email = 'cagnonsebastien@gmail.com',
   url = 'https://github.com/sebcagnon/PyGoogleForm',
-  download_url = 'https://github.com/sebcagnon/PyGoogleForm/tarball/0.2',
+  download_url = 'https://github.com/sebcagnon/PyGoogleForm/tarball/0.3',
   keywords = ['Google Form'],
-  install_requires = ['beautifulsoup4']
+  install_requires = ['beautifulsoup4'],
   classifiers = [],
 )
