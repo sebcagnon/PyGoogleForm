@@ -7,7 +7,7 @@ setup(
   author = 'Sebastien Cagnon',
   author_email = 'cagnonsebastien@gmail.com',
   url = 'https://github.com/sebcagnon/PyGoogleForm', # use the URL to the github repo
-  download_url = 'https://github.com/sebcagnon/PyGoogleForm/tarball/0.1',
+  download_url = 'https://github.com/sebcagnon/PyGoogleForm/tarball/0.2',
   keywords = ['Google Form'], # arbitrary keywords
   classifiers = [],
 )
