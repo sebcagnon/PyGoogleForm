@@ -50,14 +50,15 @@ class GFParser(object):
 
 	def submit(self):
 		"""POST current answers to Google Forms"""
-		tups = tuple((q.getID(), q.getAnswer()) for q in self.questions.values())
+		tups = tuple()
+		for q in self.questions.values():
+			if q.getAnswerData() is not None:
+				tups += q.getAnswerData()
 		data = urllib.urlencode(tups)
+		print data
 		postURL = self.soup.form["action"]
 		request = urllib2.Request(postURL, data)
 		urllib2.urlopen(request)
-
-
-
 
 
 def main():
@@ -70,8 +71,10 @@ def main():
 	questionIDs = gForm.getQuestionIDs()
 	for id in questionIDs:
 		question = gForm.getQuestionInfo(id)
-		if question[1] in ['ss-radio', 'ss-select', 'ss-checkbox']:
+		if question[1] in ['ss-radio', 'ss-select']:
 			gForm.answerQuestion(question[0], question[3][0])
+		elif question[1] == 'ss-checkbox':
+			gForm.answerQuestion(question[0], question[3][:-1])
 		else:
 			gForm.answerQuestion(question[0], "hello test!")
 	gForm.submit()

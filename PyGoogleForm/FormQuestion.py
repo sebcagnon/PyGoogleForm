@@ -1,3 +1,5 @@
+import collections
+
 class GFQuestion(object):
 	"""Generic API for Google Form Questions
 
@@ -56,20 +58,50 @@ class GFQuestion(object):
 
 	def answerQuestion(self, answer):
 		"""Save the answer to the question"""
-		# TODO: handle multiple answers for checkbox type!
 		answers = self._getChoices()
-		if not isinstance(answer, basestring):
-			raise ValueError("answer should be string or unicode")
-		if answers == "" or answer in answers:
-			self._answer = answer
+		if self.type == "ss-checkbox":
+			if not isinstance(answer, collections.Sequence):
+				raise ValueError("answer should be string/unicode or list of strings/unicode")
+			error = None
+			if isinstance(answer, basestring) and answer in answers:
+				self._answer = [answer]
+			elif isinstance(answer, collections.Sequence):
+				self._answer = []
+				for ans in answer:
+					if ans in answers:
+						self._answer.append(ans)
+					else:
+						error = ans
+						break
+			else:
+				error = answer
+			if error is not None:
+				errorMessage = 'Answer "{}" is not a posible answer. Possible answers are:\n\t'.format(error)
+				errorMessage += '\n\t'.join(answers)
+				raise ValueError(errorMessage)
 		else:
-			errorMessage = 'Answer "{}" is not a posible answer. Possible answers are:\n\t'.format(answer)
-			errorMessage += '\n\t'.join(answers)
-			raise ValueError(errorMessage)
+			if not isinstance(answer, basestring):
+				raise ValueError("answer should be string or unicode")
+			if answers == "" or answer in answers:
+				self._answer = answer
+			else:
+				errorMessage = 'Answer "{}" is not a posible answer. Possible answers are:\n\t'.format(answer)
+				errorMessage += '\n\t'.join(answers)
+				raise ValueError(errorMessage)
 
 	def getAnswer(self):
 		"""returns the chosen answer(s) or None if no answer was given"""
 		return self._answer
+
+	def getAnswerData(self):
+		"""Returns tuple (id, answer), or list of tuples if ss-checkbox"""
+		if self.type == "ss-checkbox" and self._answer is not None:
+			tup = tuple()
+			for answer in self._answer:
+				tup += ((self.id, answer),)
+			return tup
+		else:
+			return ((self.id, self._answer),)
 
 
 def main():
