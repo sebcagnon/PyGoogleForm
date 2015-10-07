@@ -5,7 +5,9 @@ The goal is to be able to submit Google Forms from anything else than a web page
 
 ## Installation
 
-Clone the repository or install via PyPI (coming soon).
+```
+pip install PyGoogleForm
+```
 
 ## How to use
 
