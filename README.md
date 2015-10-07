@@ -9,36 +9,25 @@ Clone the repository or install via PyPI (coming soon).
 
 ## How to use
 
-1. Create your form in Google Form, and then click "view live form"
-2. Use the url of the page to initialize the GFParser
+First, create your form in Google Form, and then click "view live form". Then in your code:
 
-   ```python
-   import PyGoogleForm
-   url = "https://docs.google.com/forms/d/1jzDkEha066GwSCcSrCg1yaJJLpJAk0_aIFwf6GQgmmU/viewform"
-   gForm = PyGoogleForm.GFParser(url)
-   ```
+```python
+import PyGoogleForm
+# Use the url of the page to initialize the GFParser
+url = "https://docs.google.com/forms/d/1jzDkEha066GwSCcSrCg1yaJJLpJAk0_aIFwf6GQgmmU/viewform"
+gForm = PyGoogleForm.GFParser(url)
 
-3. Get the questions by IDs
-   ```python
-   questionIDs = gForm.getQuestionIDs()
-   question1 = gForm.getQuestionInfo(questionIDs[0])
-   ```
+# Get the questions by IDs
+questionIDs = gForm.getQuestionIDs()
+question1 = gForm.getQuestionInfo(questionIDs[0])
+# question1 == [ID, type, question text, [possible choices]]
 
-4. Answer the question
-   ```python
-   # question type
-   question1[1]
-   # question text
-   question[2]
-   # for radio, select or checkboxes, list of choices
-   question[3]
-   gForm.answerQuestion(question[0], "ok")
-   ```
+# Answering a question
+gForm.answerQuestion(question[0], "ok")
 
-5. After answering all questions, submit the form
-   ```python
-   gForm.submit()
-   ```
+# Finally, submit the form
+gForm.submit()
+```
 
 ## Limitations
 
